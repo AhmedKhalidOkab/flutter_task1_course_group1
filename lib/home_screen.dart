@@ -1,93 +1,100 @@
+import 'package:f_project/main.dart';
 import 'package:flutter/material.dart';
 
-class Homescreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
+
+  GlobalKey<FormState> formKey = GlobalKey();
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.only(top: 50, left: 30, right: 30),
-          child: Card(
-              shadowColor: Colors.white54,
-              elevation: 5,
-              child: Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Register',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.person),
-                        label: Text('Full Name'),
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.email),
-                        label: Text('E-mail'),
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          suffixIcon: Icon(Icons.visibility_off),
-                          icon: Icon(Icons.key_sharp),
-                          label: Text('Password')),
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        suffixIcon: Icon(Icons.visibility_off),
-                        icon: Icon(Icons.key_sharp),
-                        label: Text('confirm Password'),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 60,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(18.0)))),
-                          onPressed: () {},
-                          child: const Text(
-                            'Register ',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500),
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+        appBar: AppBar(
+          leading: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 16),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Aleardy Register ?',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
+                        const SizedBox(
+                          height: 10,
                         ),
-                        TextButton(onPressed: () {}, child: Text('Login'))
+                        const Text(
+                          'Sign Up',
+                          style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        buildTextFormField('Name', nameController),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        buildTextFormField('Email', emailController),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        buildTextFormField('Password', passwordController, isObscureText: true),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            formKey.currentState!.validate();
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: primaryClr,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: const Center(
+                                child: Text(
+                                  'SIGN UP',
+                                  style: TextStyle(color: Colors.white, fontSize: 19),
+                                )),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              )),
+              ),
+            )));
+  }
+
+  TextFormField buildTextFormField(txt, controller, {bool? isObscureText}) {
+    return TextFormField(
+      controller: controller,
+      obscureText: isObscureText ?? false,
+      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'it can\'t be null';
+        }
+      },
+      decoration: InputDecoration(
+        label: Text(
+          '$txt',
+          style: const TextStyle(color: Colors.black),
         ),
       ),
     );
