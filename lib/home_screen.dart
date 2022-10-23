@@ -1,4 +1,4 @@
-import 'package:f_project/screens/calls.dart';
+import 'package:f_project/screens/call_screen.dart';
 import 'package:f_project/screens/camera.dart';
 import 'package:f_project/screens/chats.dart';
 import 'package:f_project/screens/status.dart';
@@ -43,8 +43,8 @@ class HomePage extends StatelessWidget {
           children: [
             camreScreen(),
             ChatScreen(),
-            SatusScreen(),
-            CallsScreen(),
+            StatusScreen(),
+            CallScreen(),
           ],
         ),
       ),

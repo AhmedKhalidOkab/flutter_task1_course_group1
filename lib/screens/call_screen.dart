@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StatusScreen extends StatelessWidget {
-  const StatusScreen({Key? key}) : super(key: key);
+class CallScreen extends StatelessWidget {
+  const CallScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
